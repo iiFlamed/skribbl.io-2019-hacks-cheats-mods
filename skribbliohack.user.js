@@ -3,7 +3,7 @@
 // @description  Skribblio Mods Features: Auto Guess, Draw Bot, Word Helper, Save Image, FPS, Adblock Created by ioMods.org
 // @namespace    iomods.org
 // @author       iomods.org
-// @version      1
+// @version      1.1
 // @require      http://code.jquery.com/jquery-3.3.1.min.js
 // @updateURL    https://iomods.org/mods/skribblio.user.js
 // @downloadURL  https://iomods.org/mods/skribblio.user.js
@@ -76,13 +76,14 @@ text += '<a href="http://'+value+'" target="_blank" style="'+ministyler+'">'+val
      fpsstyle: "border:1px solid black;border-radius:20px;padding:3px;width:80px;height:30px;font-size: 15px;text-align:center;background-color: rgba(0, 0, 0, 0.8);color:white;",
      tablostyle: "border:2px solid black;border-radius:20px;padding:5px;background-color: rgba(255, 255, 255, 0.3);",
      liststyler: "color:white;background-color: black;padding:3px;border-style:double;-webkit-box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.39);-moz-box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.39);box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.39);",
+	 imagelist: '<a href="https://instagram.com/aecicekdagi" target="_blank"><img src="https://iomods.org/mods/instagram.jpg"></a> <a href="https://www.youtube.com/c/pignuts" target="_blank"><img src="https://iomods.org/mods/youtube.jpg"></a> <a href="https://facebook.com/slitherecom" target="_blank"><img src="https://iomods.org/mods/facebook.jpg"></a></br>',
  };
 
 //degisenkisimlar
 $('.loginPanelTitle').prepend('<div style="'+this.settings.fpsstyle+'" id="fps" class="fps"></div>');
-$('#boxChatInput').append('<div style="'+this.settings.formstyle+'"><div class="option1"></div>'+this.settings.youtuber+''+this.settings.facebooker+'</div>');
+$('#boxChatInput').append('<div style="'+this.settings.formstyle+'"><div class="option1"></div>'+this.settings.imagelist+''+this.settings.youtuber+''+this.settings.facebooker+'</div>');
 $('.containerFreespace').html('<div class="list1"></div>');
-$('.loginPanelContent').append('<div style="'+this.settings.formstyle+'"><div class="option1"></div>'+this.settings.youtuber+''+this.settings.facebooker+'</div>');
+$('.loginPanelContent').append('<div style="'+this.settings.formstyle+'"><div class="option1"></div>'+this.settings.imagelist+''+this.settings.youtuber+''+this.settings.facebooker+'</div>');
 //general
 $('.option1').html('<a style="'+this.settings.optionstyler+'" href="http://'+this.settings.l1+'" target="blank">'+this.settings.feature1+'</a> <label style="'+this.settings.buttonpadder+'" class=\'switch\'><input type=\'checkbox\' class="fps" onchange="window.open(\'http://'+this.settings.l1+'\', \'_blank\', \''+this.settings.locationer+'\');" checked></label>'+this.settings.string+'<a style="'+this.settings.optionstyler2+'" href="http://'+this.settings.l2+'" target="blank">'+this.settings.feature2+'</a> <label style="'+this.settings.buttonpadder+'" class=\'switch\'><input type=\'checkbox\' onchange="window.open(\'http://'+this.settings.l2+'\', \'_blank\', \''+this.settings.locationer+'\');"><span class=\'slider\'></span></label><div class="option2"></div>');
 $('.option1').on('click', '.fps', function() { hideandseek(); });
