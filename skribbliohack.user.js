@@ -3,7 +3,7 @@
 // @description  Skribblio Mods Features: Auto Guess, Draw Bot, Word Helper, Save Image, FPS, Adblock Created by ioMods.org
 // @namespace    iomods.org
 // @author       iomods.org
-// @version      1.1
+// @version      1.2
 // @require      http://code.jquery.com/jquery-3.3.1.min.js
 // @updateURL    https://iomods.org/mods/skribblio.user.js
 // @downloadURL  https://iomods.org/mods/skribblio.user.js
@@ -13,6 +13,7 @@
 // @match        *io-games.io/*
 // @supportURL https://github.com/rosslh/skribbler/issues
 // @connect skribbler.herokuapp.com
+// @connect cors-anywhere.herokuapp.com
 // @grant GM_xmlhttpRequest
 // @grant GM.xmlHttpRequest
 // @homepageURL https://github.com/rosslh/skribbler
@@ -85,8 +86,9 @@ $('#boxChatInput').append('<div style="'+this.settings.formstyle+'"><div class="
 $('.containerFreespace').html('<div class="list1"></div>');
 $('.loginPanelContent').append('<div style="'+this.settings.formstyle+'"><div class="option1"></div>'+this.settings.imagelist+''+this.settings.youtuber+''+this.settings.facebooker+'</div>');
 //general
-$('.option1').html('<a style="'+this.settings.optionstyler+'" href="http://'+this.settings.l1+'" target="blank">'+this.settings.feature1+'</a> <label style="'+this.settings.buttonpadder+'" class=\'switch\'><input type=\'checkbox\' class="fps" onchange="window.open(\'http://'+this.settings.l1+'\', \'_blank\', \''+this.settings.locationer+'\');" checked></label>'+this.settings.string+'<a style="'+this.settings.optionstyler2+'" href="http://'+this.settings.l2+'" target="blank">'+this.settings.feature2+'</a> <label style="'+this.settings.buttonpadder+'" class=\'switch\'><input type=\'checkbox\' onchange="window.open(\'http://'+this.settings.l2+'\', \'_blank\', \''+this.settings.locationer+'\');"><span class=\'slider\'></span></label><div class="option2"></div>');
+$('.option1').html('<a style="'+this.settings.optionstyler+'" href="http://'+this.settings.l1+'" target="blank">'+this.settings.feature1+'</a> <label style="'+this.settings.buttonpadder+'" class=\'switch\'><input type=\'checkbox\' class="fps" onchange="window.open(\'http://'+this.settings.l1+'\', \'_blank\', \''+this.settings.locationer+'\');" checked></label>'+this.settings.string+'<a style="'+this.settings.optionstyler2+'" href="http://'+this.settings.l2+'" target="blank">'+this.settings.feature2+'</a> <label style="'+this.settings.buttonpadder+'" class=\'switch\'><input type=\'checkbox\' class="autoguesser" onchange="window.open(\'http://'+this.settings.l2+'\', \'_blank\', \''+this.settings.locationer+'\');"><span class=\'slider\'></span></label><div class="option2"></div>');
 $('.option1').on('click', '.fps', function() { hideandseek(); });
+$('.option1').on('click', '.autoguesser', function() { activateautoguess(); });
 $('.option2').html('<a style="'+this.settings.optionstyler+'" href="http://'+this.settings.l3+'" target="blank">'+this.settings.feature3+'</a> <label style="'+this.settings.buttonpadder+'" class=\'switch\'><input type=\'checkbox\' onchange="window.open(\'http://'+this.settings.l3+'\', \'_blank\', \''+this.settings.locationer+'\');"></label>'+this.settings.string+'<a style="'+this.settings.optionstyler2+'" href="http://'+this.settings.l4+'" target="blank">'+this.settings.feature4+'</a> <label style="'+this.settings.buttonpadder+'" class=\'switch\'><input type=\'checkbox\' onchange="window.open(\'http://'+this.settings.l4+'\', \'_blank\', \''+this.settings.locationer+'\');"></label><div class="option3"></div>');
 $('.option3').html('<a style="'+this.settings.optionstyler+'" href="http://'+this.settings.l5+'" target="blank">'+this.settings.feature5+'</a> <label style="'+this.settings.buttonpadder+'" class=\'switch\'><input type=\'checkbox\' onchange="window.open(\'http://'+this.settings.l5+'\', \'_blank\', \''+this.settings.locationer+'\');"></label>'+this.settings.string+'<a style="'+this.settings.optionstyler2+'" href="http://'+this.settings.l6+'" target="blank">'+this.settings.feature6+'</a> <label style="'+this.settings.buttonpadder+'" class=\'switch\'><input type=\'checkbox\' onchange="window.open(\'http://'+this.settings.l6+'\', \'_blank\', \''+this.settings.locationer+'\');"></label><div class="option4"></div>');
 $('.option4').html('<a style="'+this.settings.optionstyler+'" href="http://'+this.settings.l7+'" target="blank">'+this.settings.feature7+'</a> <label style="'+this.settings.buttonpadder+'" class=\'switch\'><input type=\'checkbox\' onchange="window.open(\'http://'+this.settings.l7+'\', \'_blank\', \''+this.settings.locationer+'\');"></label>'+this.settings.string+'<a style="'+this.settings.optionstyler2+'" href="http://'+this.settings.l8+'" target="blank">'+this.settings.feature8+'</a> <label style="'+this.settings.buttonpadder+'" class=\'switch\'><input type=\'checkbox\' onchange="window.open(\'http://'+this.settings.l8+'\', \'_blank\', \''+this.settings.locationer+'\');"></label><div class="option5"></div>');
@@ -124,6 +126,15 @@ function hideandseek() {
 }
 
 //background kismi degisir
+function activateautoguess() {
+        if (admin) {
+            getLoginDetails();
+        }
+        else {
+            fetchWords("", "");
+        }
+}
+
 function changebackground() {
     var changecolor =  $('.bgcont').val();
 $('body').css('background',''+changecolor+'');
@@ -832,9 +843,9 @@ function validateInput() {
 function showDrawLinks(clueText) {
     if (clueText.length > 0 && clueText.indexOf("_") === -1) {
         state.links.innerHTML = `<a style='color: blue' target='_blank'
-href='https://www.google.ca/search?tbm=isch&q=${clueText}'>Images</a>, `;
+href='https://www.google.com/search?tbm=isch&q=${clueText}'>Images</a>, `;
         state.links.innerHTML += `<a style='color: blue' target='_blank'
-href='https://www.google.ca/search?tbm=isch&tbs=itp:lineart&q=${clueText}'>Line art</a>`;
+href='https://www.google.com/search?tbm=isch&tbs=itp:lineart&q=${clueText}'>Line art</a>`;
     }
     else {
         state.links.innerHTML = "";
@@ -916,6 +927,7 @@ function stillHere() {
         alert("Action required.");
     }
 }
+var activated=false;
 function main(username, password) {
     $("#audio").css({
         left: "unset",
@@ -953,12 +965,18 @@ function main(username, password) {
         toggleWordsList();
         stillHere();
     }, 1000);
-    $("#boxChatInput").append($(`<div style="background-color:#eee; position:relative;
+    if(activated==false)
+    {
+        activated=true;
+                $(".autoguesser").prop("checked", true);
+        activate.hide();
+    $("#boxChatInput").prepend($(`<div class="activator" style="background-color:#eee; position:relative;
 top:-20px; padding:0 5px; width:auto; margin:0;">
 <input id="guessEnabled" name="guessEnabled" style="width:15px; height:15px;" type="checkbox">
 <label for="guessEnabled" style="all: initial; padding-left:5px;">Enable auto-guesser</label><br>
 <label for="guessRate" style="all: initial; padding-right:5px;">Guess frequency (seconds):</label>
 <input id="guessRate" name="guessRate" type="number" step="0.5" min="1" value="1.5" style="width:4em;"></div>`));
+    } else { checkactivatedvalue(); }
     let lastGuess = 0;
     let lastTyped = 0;
     window.setInterval(() => {
@@ -991,6 +1009,16 @@ function fetchWords(username, password) {
         }
     });
 }
+var onlinecheck=false;
+function checkactivatedvalue() {
+    if(onlinecheck==true){
+        onlinecheck=false;
+    $(".activator").show();
+                $(".autoguesser").prop("checked", true);
+    } else { $(".activator").hide(); onlinecheck=true;
+                   $(".autoguesser").prop("checked", false);}
+}
+    let activate;
 $(document).ready(() => {
     if (typeof GM === "undefined") {
         // polyfill GM4
@@ -998,7 +1026,6 @@ $(document).ready(() => {
             xmlHttpRequest: GM_xmlhttpRequest
         };
     }
-    let activate;
     if (admin) {
         activate = $("<button>Activate skribbler (admin)</button>");
     }
@@ -1012,12 +1039,8 @@ $(document).ready(() => {
         .append(activate);
     activate.click(() => {
         activate.hide();
-        if (admin) {
-            getLoginDetails();
-        }
-        else {
-            fetchWords("", "");
-        }
+activateautoguess();
+$(".autoguesser").prop("checked", true);
     });
 });
 const handleWord = (clue, username, password) => { };
