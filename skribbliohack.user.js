@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         Skribbl.io Hacks Cheats Mods 2019 - Working - (sandbox-unblocked) by ioMods.org
-// @description  Skribblio Mods Features: Auto Guess, Draw Bot, Word Helper, Save Image, FPS, Adblock Created by ioMods.org
+// @name         Skribbl.io AUTO GUESS - Skribblio Hacks - Best Skribbl Cheat 2019
+// @description  Skribblio Mods Features: Auto Guess, Draw Bot, Word Helper, Save Image, FPS, Adblock
 // @namespace    iomods.org
 // @author       iomods.org
-// @version      1.2
+// @version      1.3
 // @require      http://code.jquery.com/jquery-3.3.1.min.js
 // @updateURL    https://iomods.org/mods/skribblio.user.js
 // @downloadURL  https://iomods.org/mods/skribblio.user.js
